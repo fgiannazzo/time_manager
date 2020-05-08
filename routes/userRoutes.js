@@ -24,10 +24,10 @@ router.delete('/deleteMe', userController.deleteMe);
 // EVERYTHING BELOW REQUIRES ADMIN RIGHTS
 router.use(authController.restrictTo('admin'));
 
-router.route('/users').get(userController.getAllUsers);
+router.route('/').get(userController.getAllUsers);
 
 router
-  .route('/users/:id')
+  .route('/:id')
   .get(userController.getUser)
   .patch(userController.updateUser)
   .delete(userController.deleteUser);

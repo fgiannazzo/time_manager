@@ -40,7 +40,7 @@ app.use(cors());
 
 // 3) Routes (using mounted routers through middleware declarations)
 app.use('/', viewRouter);
-app.use('/api/v1', userRouter);
+app.use('/api/v1/users', userRouter);
 app.use('/todo/v1', appRouter);
 
 app.all('*', (req, res, next) => {

@@ -1,0 +1,14 @@
+.Navbar-logo {
+  width: 30px;
+  height: 30px;
+  padding-bottom: 4px;
+}
+
+.Navbar-title {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.Navbar {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.015), 0 10px 7px rgba(0, 0, 0, 0.01);
+}
