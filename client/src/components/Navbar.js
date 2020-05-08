@@ -45,7 +45,7 @@ export default class Navbar extends Component {
               </li>
             </ul>
             <form className="form-inline ">
-              <button className="form-control mr-sm-2 btn btn-outline-primary my-2 my-sm-0">
+              <button className="form-control mr-sm-2 btn btn-outline-info my-2 my-sm-0">
                 Login
               </button>
             </form>
