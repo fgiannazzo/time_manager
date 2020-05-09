@@ -1,0 +1,24 @@
+.Login {
+  margin-top: 5rem;
+  width: 350px;
+  animation: 0.3s ease-in 0s 1 appear;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+.Signup {
+  text-decoration: none;
+  color: black;
+}
+
+.Spinner {
+  width: 25px;
+  height: 25px;
+}

@@ -30,24 +30,26 @@ export default class Navbar extends Component {
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
                 <NavLink exact to="/" className="nav-link">
-                  Home
+                  Log Time
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink exact to="/features" className="nav-link">
-                  Projects
+                <NavLink exact to="/dashboard" className="nav-link">
+                  Dashboard
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink exact to="/pricing" className="nav-link">
+                <NavLink exact to="/settings" className="nav-link">
                   Settings
                 </NavLink>
               </li>
             </ul>
             <form className="form-inline ">
-              <button className="form-control mr-sm-2 btn btn-outline-info my-2 my-sm-0">
-                Login
-              </button>
+              <Link to="/login">
+                <button className="form-control mr-sm-2 btn btn-outline-info my-2 my-sm-0">
+                  Login
+                </button>
+              </Link>
             </form>
           </div>
         </nav>

@@ -1,3 +1,13 @@
 .HomePage-card {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.015), 0 10px 7px rgba(0, 0, 0, 0.01);
+  animation: 0.3s ease-in 0s 1 appear;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
 }
