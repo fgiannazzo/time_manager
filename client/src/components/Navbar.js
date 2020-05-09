@@ -45,11 +45,19 @@ export default class Navbar extends Component {
               </li>
             </ul>
             <form className="form-inline ">
-              <Link to="/login">
-                <button className="form-control mr-sm-2 btn btn-outline-info my-2 my-sm-0">
-                  Login
-                </button>
-              </Link>
+              {this.props.loggedIn ? (
+                <Link to="/logout">
+                  <button className="form-control mr-sm-2 btn btn-outline-info my-2 my-sm-0">
+                    Logout
+                  </button>
+                </Link>
+              ) : (
+                <Link to="/login">
+                  <button className="form-control mr-sm-2 btn btn-outline-info my-2 my-sm-0">
+                    Login
+                  </button>
+                </Link>
+              )}
             </form>
           </div>
         </nav>

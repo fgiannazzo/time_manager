@@ -18,6 +18,7 @@ export default class App extends Component {
       role: ''
     };
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
   }
   login(email, password) {
     axios
@@ -37,10 +38,19 @@ export default class App extends Component {
         }
       });
   }
+  logout() {
+    this.setState({
+      loggedIn: false,
+      email: '',
+      id: '',
+      name: '',
+      role: ''
+    });
+  }
   render() {
     return (
       <div>
-        <Navbar />
+        <Navbar loggedIn={this.state.loggedIn} />
         <div className="container">
           <Switch>
             <Route
@@ -48,6 +58,17 @@ export default class App extends Component {
               path="/login"
               render={routeProps => (
                 <Login {...routeProps} login={this.login} />
+              )}
+            />
+            <Route
+              exact
+              path="/logout"
+              render={() => (
+                <div className="container text-center mt-5">
+                  <h1 className="h3 mb-3 font-weight-normal">
+                    You have been logged out.
+                  </h1>
+                </div>
               )}
             />
             <PrivateRoute path="/" loggedIn={this.state.loggedIn}>
