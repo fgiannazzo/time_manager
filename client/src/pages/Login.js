@@ -21,7 +21,18 @@ export default class Login extends Component {
     });
     this.props.login(this.state.email, this.state.password);
     setTimeout(() => {
-      this.props.history.push('/');
+      if (this.props.loggedIn) {
+        this.props.history.push('/');
+      } else {
+        setTimeout(() => {
+          if (!this.props.loggedIn) {
+            alert('Timed out!');
+            this.setState({
+              loading: false
+            });
+          }
+        }, 5000);
+      }
     }, 1000);
   }
   render() {

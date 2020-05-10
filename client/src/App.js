@@ -12,67 +12,64 @@ export default class App extends Component {
     super(props);
     this.state = {
       loggedIn: false,
-      email: '',
-      id: '',
-      name: '',
-      role: ''
+      id: ''
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
   }
   login(email, password) {
-    axios
-      .post('/api/v1/users/login', {
-        email,
-        password
-      })
-      .then(res => {
+    try {
+      axios
+        .post('/api/v1/users/login', {
+          email,
+          password
+        })
+        .then(res => {
+          if (res.status === 200) {
+            this.setState({
+              loggedIn: true,
+              id: res.data.data.user.id
+            });
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  // TODO: Logout using proxy ends up ressetting connection. Will this be a problem in prod?
+  logout() {
+    try {
+      axios.get('/api/v1/users/logout').then(res => {
         if (res.status === 200) {
           this.setState({
-            loggedIn: true,
-            email: res.data.data.user.email,
-            id: res.data.data.user.id,
-            name: res.data.data.user.name,
-            role: res.data.data.user.role
+            loggedIn: false,
+            id: ''
           });
         }
       });
-  }
-  logout() {
-    this.setState({
-      loggedIn: false,
-      email: '',
-      id: '',
-      name: '',
-      role: ''
-    });
+    } catch (err) {
+      console.log(err);
+    }
   }
   render() {
     return (
       <div>
-        <Navbar loggedIn={this.state.loggedIn} />
+        <Navbar loggedIn={this.state.loggedIn} logout={this.logout} />
         <div className="container">
           <Switch>
             <Route
               exact
               path="/login"
               render={routeProps => (
-                <Login {...routeProps} login={this.login} />
-              )}
-            />
-            <Route
-              exact
-              path="/logout"
-              render={() => (
-                <div className="container text-center mt-5">
-                  <h1 className="h3 mb-3 font-weight-normal">
-                    You have been logged out.
-                  </h1>
-                </div>
+                <Login
+                  {...routeProps}
+                  login={this.login}
+                  loggedIn={this.state.loggedIn}
+                />
               )}
             />
             <PrivateRoute path="/" loggedIn={this.state.loggedIn}>
-              <HomePage />
+              <HomePage userId={this.state.id} />
             </PrivateRoute>
           </Switch>
         </div>
