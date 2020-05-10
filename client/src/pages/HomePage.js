@@ -21,7 +21,7 @@ export default class HomePage extends Component {
   }
   refreshHistory() {
     try {
-      axios.get('/api/v1/timelogs/?sort=-date').then(res => {
+      axios.get('/node/api/v1/timelogs/?sort=-date').then(res => {
         this.setState({
           records: res.data.data.data
         });
@@ -32,7 +32,7 @@ export default class HomePage extends Component {
   }
   refreshProjects() {
     try {
-      axios.get('/api/v1/projects/').then(res => {
+      axios.get('/node/api/v1/projects/').then(res => {
         this.setState({
           projects: res.data.data.data
         });
@@ -57,7 +57,7 @@ export default class HomePage extends Component {
       project: projectId
     };
     try {
-      axios.post('/api/v1/timelogs/', newRecord).then(res => {
+      axios.post('/node/api/v1/timelogs/', newRecord).then(res => {
         if (res.status === 201) {
           this.refreshHistory();
         } else {

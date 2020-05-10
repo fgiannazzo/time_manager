@@ -20,7 +20,7 @@ export default class App extends Component {
   login(email, password) {
     try {
       axios
-        .post('/api/v1/users/login', {
+        .post('/node/api/v1/users/login', {
           email,
           password
         })
@@ -39,7 +39,7 @@ export default class App extends Component {
   // TODO: Logout using proxy ends up ressetting connection. Will this be a problem in prod?
   logout() {
     try {
-      axios.get('/api/v1/users/logout').then(res => {
+      axios.get('/node/api/v1/users/logout').then(res => {
         if (res.status === 200) {
           this.setState({
             loggedIn: false,
