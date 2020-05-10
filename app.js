@@ -19,9 +19,9 @@ const timelogRouter = require('./routes/timelogRoutes');
 
 const app = express();
 
-// app.enable('trust proxy');
+app.enable('trust proxy');
 
-// app.use(cors());
+app.use(cors());
 
 // app.options('*', cors());
 

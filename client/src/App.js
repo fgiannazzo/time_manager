@@ -21,7 +21,7 @@ export default class App extends Component {
     try {
       axios
         .post(
-          '/node/api/v1/users/login',
+          `${process.env.REACT_APP_API_PATH}/api/v1/users/login`,
           {
             email,
             password
@@ -42,11 +42,11 @@ export default class App extends Component {
       console.log(err);
     }
   }
-  // TODO: Logout using proxy ends up ressetting connection. Will this be a problem in prod?
+
   logout() {
     try {
       axios
-        .get('/node/api/v1/users/logout', {
+        .get(`${process.env.REACT_APP_API_PATH}/node/api/v1/users/logout`, {
           withCredentials: true
         })
         .then(res => {

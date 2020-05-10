@@ -22,7 +22,7 @@ export default class HomePage extends Component {
   refreshHistory() {
     try {
       axios
-        .get('/node/api/v1/timelogs/?sort=-date', {
+        .get(`${process.env.REACT_APP_API_PATH}/api/v1/timelogs/?sort=-date`, {
           withCredentials: true
         })
         .then(res => {
@@ -37,7 +37,7 @@ export default class HomePage extends Component {
   refreshProjects() {
     try {
       axios
-        .get('/node/api/v1/projects/', {
+        .get(`${process.env.REACT_APP_API_PATH}/api/v1/projects/`, {
           withCredentials: true
         })
         .then(res => {
@@ -66,7 +66,7 @@ export default class HomePage extends Component {
     };
     try {
       axios
-        .post('/node/api/v1/timelogs/', newRecord, {
+        .post(`${process.env.REACT_APP_API_PATH}/api/v1/timelogs/`, newRecord, {
           withCredentials: true
         })
         .then(res => {
@@ -93,9 +93,13 @@ export default class HomePage extends Component {
     };
     try {
       axios
-        .post('/node/api/v1/projects/', newProject, {
-          withCredentials: true
-        })
+        .post(
+          `${process.env.REACT_APP_API_PATH}/api/v1/projects/`,
+          newProject,
+          {
+            withCredentials: true
+          }
+        )
         .then(res => {
           if (res.status === 201) {
             this.refreshProjects();

@@ -8,7 +8,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <BrowserRouter basename={'/node'}>
+  <BrowserRouter basename={process.env.REACT_APP_API_SUBDOMAIN}>
     <App />
   </BrowserRouter>,
   document.getElementById('root')
