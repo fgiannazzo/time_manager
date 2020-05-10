@@ -3,6 +3,7 @@ import HomePageCard from '../components/HomePageCard';
 import Stopwatch from '../components/Stopwatch';
 import History from '../components/History';
 import axios from 'axios';
+axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
 import ProjectModal from '../components/ProjectModal';
 
 export default class HomePage extends Component {
@@ -22,7 +23,7 @@ export default class HomePage extends Component {
   refreshHistory() {
     try {
       axios
-        .get('https://eventek.io/node/api/v1/timelogs/?sort=-date', {
+        .get('/node/api/v1/timelogs/?sort=-date', {
           withCredentials: true
         })
         .then(res => {
@@ -37,7 +38,7 @@ export default class HomePage extends Component {
   refreshProjects() {
     try {
       axios
-        .get('https://eventek.io/node/api/v1/projects/', {
+        .get('/node/api/v1/projects/', {
           withCredentials: true
         })
         .then(res => {
@@ -66,7 +67,7 @@ export default class HomePage extends Component {
     };
     try {
       axios
-        .post('https://eventek.io/node/api/v1/timelogs/', newRecord, {
+        .post('/node/api/v1/timelogs/', newRecord, {
           withCredentials: true
         })
         .then(res => {
@@ -93,7 +94,7 @@ export default class HomePage extends Component {
     };
     try {
       axios
-        .post('https://eventek.io/api/v1/projects/', newProject, {
+        .post('/node/api/v1/projects/', newProject, {
           withCredentials: true
         })
         .then(res => {
