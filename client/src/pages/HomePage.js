@@ -21,22 +21,30 @@ export default class HomePage extends Component {
   }
   refreshHistory() {
     try {
-      axios.get('/node/api/v1/timelogs/?sort=-date').then(res => {
-        this.setState({
-          records: res.data.data.data
+      axios
+        .get('/node/api/v1/timelogs/?sort=-date', {
+          withCredentials: true
+        })
+        .then(res => {
+          this.setState({
+            records: res.data.data.data
+          });
         });
-      });
     } catch (err) {
       console.log(err);
     }
   }
   refreshProjects() {
     try {
-      axios.get('/node/api/v1/projects/').then(res => {
-        this.setState({
-          projects: res.data.data.data
+      axios
+        .get('/node/api/v1/projects/', {
+          withCredentials: true
+        })
+        .then(res => {
+          this.setState({
+            projects: res.data.data.data
+          });
         });
-      });
       this.refreshHistory();
     } catch (err) {
       console.log(err);
@@ -57,13 +65,17 @@ export default class HomePage extends Component {
       project: projectId
     };
     try {
-      axios.post('/node/api/v1/timelogs/', newRecord).then(res => {
-        if (res.status === 201) {
-          this.refreshHistory();
-        } else {
-          alert('Error adding new record!');
-        }
-      });
+      axios
+        .post('/node/api/v1/timelogs/', newRecord, {
+          withCredentials: true
+        })
+        .then(res => {
+          if (res.status === 201) {
+            this.refreshHistory();
+          } else {
+            alert('Error adding new record!');
+          }
+        });
     } catch (err) {
       console.log(err);
     }
@@ -80,14 +92,18 @@ export default class HomePage extends Component {
       user: this.props.userId
     };
     try {
-      axios.post('/api/v1/projects/', newProject).then(res => {
-        if (res.status === 201) {
-          this.refreshProjects();
-          this.toggleModal();
-        } else {
-          alert('Error adding new project!');
-        }
-      });
+      axios
+        .post('/api/v1/projects/', newProject, {
+          withCredentials: true
+        })
+        .then(res => {
+          if (res.status === 201) {
+            this.refreshProjects();
+            this.toggleModal();
+          } else {
+            alert('Error adding new project!');
+          }
+        });
     } catch (err) {
       console.log(err);
     }
