@@ -6,7 +6,8 @@ A simple time manager dashboard built with React and NodeJS/Express/Mongo/Mongoo
 
 config.env is required. It must include:
 
-`NODE_ENV=development_or_production
+```
+NODE_ENV=development_or_production
 PORT=port
 DATABASE=mongodb+srv://your-connection-string-here
 DATABASE_PASSWORD=password
@@ -18,4 +19,5 @@ JWT_COOKIE_EXPIRES_IN=30
 EMAIL_USERNAME=username
 EMAIL_PASSWORD=password
 EMAIL_HOST=host
-EMAIL_PORT=port`
+EMAIL_PORT=port
+```
