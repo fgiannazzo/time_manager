@@ -19,8 +19,11 @@ const timelogRouter = require('./routes/timelogRoutes');
 
 const app = express();
 
-// app.set('view engine', 'pug');
-// app.set('views', path.join(__dirname, 'views'));
+app.enable('trust proxy');
+
+app.use(cors());
+
+app.options('*', cors());
 
 // SERVE STATIC FILES
 app.use(express.static(path.join(__dirname, 'public')));
@@ -36,8 +39,6 @@ if (process.env.NODE_ENV === 'development') {
 // READ DATA FROM BODY AND LIMIT IT TO 10KB TO PREVENT ATTACKS
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
-
-app.use(cors());
 
 // 3) Routes (using mounted routers through middleware declarations)
 app.use('/', viewRouter);
