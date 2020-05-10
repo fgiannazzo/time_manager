@@ -22,7 +22,7 @@ export default class HomePage extends Component {
   refreshHistory() {
     try {
       axios
-        .get('/node/api/v1/timelogs/?sort=-date', {
+        .get('https://eventek.io/node/api/v1/timelogs/?sort=-date', {
           withCredentials: true
         })
         .then(res => {
@@ -37,7 +37,7 @@ export default class HomePage extends Component {
   refreshProjects() {
     try {
       axios
-        .get('/node/api/v1/projects/', {
+        .get('https://eventek.io/node/api/v1/projects/', {
           withCredentials: true
         })
         .then(res => {
@@ -66,7 +66,7 @@ export default class HomePage extends Component {
     };
     try {
       axios
-        .post('/node/api/v1/timelogs/', newRecord, {
+        .post('https://eventek.io/node/api/v1/timelogs/', newRecord, {
           withCredentials: true
         })
         .then(res => {
@@ -93,7 +93,7 @@ export default class HomePage extends Component {
     };
     try {
       axios
-        .post('/api/v1/projects/', newProject, {
+        .post('https://eventek.io/api/v1/projects/', newProject, {
           withCredentials: true
         })
         .then(res => {

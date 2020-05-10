@@ -21,7 +21,7 @@ export default class App extends Component {
     try {
       axios
         .post(
-          '/node/api/v1/users/login',
+          'https://eventek.io/node/api/v1/users/login',
           {
             email,
             password
@@ -46,7 +46,7 @@ export default class App extends Component {
   logout() {
     try {
       axios
-        .get('/node/api/v1/users/logout', {
+        .get('https://eventek.io/node/api/v1/users/logout', {
           withCredentials: true
         })
         .then(res => {
