@@ -7,12 +7,14 @@ export default class Stopwatch extends Component {
     this.state = {
       timerOn: false,
       timerStart: 0,
-      timerTime: 0
+      timerTime: 0,
+      project: ''
     };
     this.startTimer = this.startTimer.bind(this);
     this.stopTimer = this.stopTimer.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
     this.saveTime = this.saveTime.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   startTimer() {
     this.setState({
@@ -43,11 +45,20 @@ export default class Stopwatch extends Component {
     let seconds = Math.floor(timerTime / 1000) % 60;
     seconds > 30 && minutes++;
     if (hours >= 1 || minutes >= 1) {
-      this.props.addRecord(`${hours} hours and ${minutes} minutes`);
+      this.props.addRecord(
+        `${hours} hours and ${minutes} minutes`,
+        this.state.project
+      );
     } else {
       alert('Time spent must be higher than 1 minute!');
     }
     this.resetTimer();
+  }
+  handleChange(e) {
+    let { value } = e.target;
+    this.setState({
+      project: value
+    });
   }
   render() {
     const { timerTime } = this.state;
@@ -57,6 +68,28 @@ export default class Stopwatch extends Component {
 
     return (
       <div className="Stopwatch">
+        <div className="input-group mb-3">
+          <select
+            class="form-control"
+            id="projectSelect"
+            onChange={this.handleChange}
+          >
+            <option></option>
+            {this.props.projects.map(p => (
+              <option>{p.name}</option>
+            ))}
+          </select>
+          <div className="input-group-append">
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              onClick={this.props.addProject}
+            >
+              Add
+            </button>
+          </div>
+        </div>
+
         <div className="Stopwatch-timer">
           <h1 className="display-4">
             {hours}:{minutes}:{seconds}

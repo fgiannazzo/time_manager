@@ -6,7 +6,8 @@ const projectSchema = new mongoose.Schema({
     required: [true, 'Project name cannot be empty']
   },
   completed: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   createdAt: {
     type: Date,

@@ -12,7 +12,7 @@ const AppError = require('./utils/appError');
 // Require Rouiter Files
 const viewRouter = require('./routes/viewRoutes');
 const userRouter = require('./routes/userRoutes');
-const appRouter = require('./routes/appRoutes');
+const projectRouter = require('./routes/projectRoutes');
 
 // 1) GLOBAL MIDDLEWARES
 
@@ -41,7 +41,7 @@ app.use(cors());
 // 3) Routes (using mounted routers through middleware declarations)
 app.use('/', viewRouter);
 app.use('/api/v1/users', userRouter);
-app.use('/todo/v1', appRouter);
+app.use('/api/v1/projects', projectRouter);
 
 app.all('*', (req, res, next) => {
   // const err = new Error(`Can't find ${req.originalUrl} on this server!`);
