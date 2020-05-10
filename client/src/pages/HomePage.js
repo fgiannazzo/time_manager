@@ -3,7 +3,6 @@ import HomePageCard from '../components/HomePageCard';
 import Stopwatch from '../components/Stopwatch';
 import History from '../components/History';
 import axios from 'axios';
-axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
 import ProjectModal from '../components/ProjectModal';
 
 export default class HomePage extends Component {
