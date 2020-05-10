@@ -70,13 +70,13 @@ export default class Stopwatch extends Component {
       <div className="Stopwatch">
         <div className="input-group mb-3">
           <select
-            class="form-control"
+            className="form-control"
             id="projectSelect"
             onChange={this.handleChange}
           >
             <option></option>
             {this.props.projects.map(p => (
-              <option>{p.name}</option>
+              <option key={p.name}>{p.name}</option>
             ))}
           </select>
           <div className="input-group-append">

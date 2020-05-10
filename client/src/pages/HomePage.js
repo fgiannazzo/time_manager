@@ -17,7 +17,6 @@ export default class HomePage extends Component {
   componentDidMount() {
     try {
       axios.get('/api/v1/projects/').then(res => {
-        console.log(res.data.data.data);
         this.setState({
           projects: res.data.data.data
         });
