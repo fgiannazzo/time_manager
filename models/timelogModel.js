@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const timelogSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now()
+    default: Date.now
+  },
+  dateString: {
+    type: String
   },
   timeOfDay: {
     type: String
@@ -19,6 +22,18 @@ const timelogSchema = new mongoose.Schema({
     ref: 'Project',
     required: [true, 'Timelog must be associated to a Project!']
   }
+});
+
+timelogSchema.pre(/^find/, function(next) {
+  this.populate('project').populate({
+    path: 'project',
+    select: '_id'
+  });
+  this.populate('project').populate({
+    path: 'project',
+    select: 'name'
+  });
+  next();
 });
 
 const Timelog = mongoose.model('Timelog', timelogSchema);

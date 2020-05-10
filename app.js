@@ -13,6 +13,7 @@ const AppError = require('./utils/appError');
 const viewRouter = require('./routes/viewRoutes');
 const userRouter = require('./routes/userRoutes');
 const projectRouter = require('./routes/projectRoutes');
+const timelogRouter = require('./routes/timelogRoutes');
 
 // 1) GLOBAL MIDDLEWARES
 
@@ -42,6 +43,7 @@ app.use(cors());
 app.use('/', viewRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/projects', projectRouter);
+app.use('/api/v1/timelogs', timelogRouter);
 
 app.all('*', (req, res, next) => {
   // const err = new Error(`Can't find ${req.originalUrl} on this server!`);

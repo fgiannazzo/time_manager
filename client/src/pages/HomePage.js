@@ -3,59 +3,119 @@ import HomePageCard from '../components/HomePageCard';
 import Stopwatch from '../components/Stopwatch';
 import History from '../components/History';
 import axios from 'axios';
+import ProjectModal from '../components/ProjectModal';
 
 export default class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       records: [],
-      projects: []
+      projects: [],
+      modalVisible: false
     };
     this.addRecord = this.addRecord.bind(this);
     this.addProject = this.addProject.bind(this);
+    this.refreshHistory = this.refreshHistory.bind(this);
+    this.refreshProjects = this.refreshProjects.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
-  componentDidMount() {
+  refreshHistory() {
     try {
-      axios.get('/api/v1/projects/').then(res => {
+      axios.get('/api/v1/timelogs/?sort=-date').then(res => {
         this.setState({
-          projects: res.data.data.data
+          records: res.data.data.data
         });
       });
     } catch (err) {
       console.log(err);
     }
   }
-  addRecord(timeSpentString, project) {
+  refreshProjects() {
+    try {
+      axios.get('/api/v1/projects/').then(res => {
+        this.setState({
+          projects: res.data.data.data
+        });
+      });
+      this.refreshHistory();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  componentDidMount() {
+    this.refreshProjects();
+  }
+  addRecord(timeSpentString, timeSpentInt, projectId) {
     const now = new Date();
     const newDate = now.toDateString();
     const newTime = now.toLocaleTimeString();
     let newRecord = {
-      date: newDate,
-      time: newTime,
-      timeSpent: timeSpentString,
-      project: project
+      dateString: newDate,
+      timeOfDay: newTime,
+      timeSpentString: timeSpentString,
+      timeSpentInt: timeSpentInt,
+      project: projectId
     };
+    try {
+      axios.post('/api/v1/timelogs/', newRecord).then(res => {
+        if (res.status === 201) {
+          this.refreshHistory();
+        } else {
+          alert('Error adding new record!');
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  toggleModal() {
     this.setState(st => ({
-      records: [...st.records, newRecord]
+      modalVisible: !st.modalVisible
     }));
   }
-  addProject() {}
+
+  addProject(projectName) {
+    const newProject = {
+      name: projectName,
+      user: this.props.userId
+    };
+    try {
+      axios.post('/api/v1/projects/', newProject).then(res => {
+        if (res.status === 201) {
+          this.refreshProjects();
+          this.toggleModal();
+        } else {
+          alert('Error adding new project!');
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
   render() {
     return (
       <div className="HomePage ">
         <h4 className="my-4">Log Time</h4>
         <div className="row">
-          <HomePageCard title="Timer">
+          <HomePageCard size="col-md-12 col-lg-4" title="Timer">
             <Stopwatch
               addRecord={this.addRecord}
               projects={this.state.projects}
-              addProject={this.addProject}
+              toggleModal={this.toggleModal}
             />
           </HomePageCard>
-          <HomePageCard size="col-md-6 col-lg-8" title="History">
+          <HomePageCard
+            size="col-md-12 col-lg-8 ml-mt-auto mt-lg-0"
+            title="History"
+          >
             <History records={this.state.records} />
           </HomePageCard>
         </div>
+        <ProjectModal
+          toggleModal={this.toggleModal}
+          addProject={this.addProject}
+          show={this.state.modalVisible}
+        />
       </div>
     );
   }

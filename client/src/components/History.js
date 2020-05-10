@@ -19,10 +19,11 @@ export default class History extends Component {
           <tbody>
             {records.map(i => (
               <HistoryItem
-                date={i.date}
-                time={i.time}
-                timeSpent={i.timeSpent}
-                project={i.project}
+                date={i.dateString}
+                time={i.timeOfDay}
+                timeSpent={i.timeSpentString}
+                project={i.project.name}
+                key={i._id}
               />
             ))}
           </tbody>

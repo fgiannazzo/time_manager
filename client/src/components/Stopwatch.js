@@ -39,6 +39,9 @@ export default class Stopwatch extends Component {
     });
   }
   saveTime() {
+    const projectId = this.props.projects.find(
+      ({ name }) => name === this.state.project
+    );
     const { timerTime } = this.state;
     let hours = Math.floor(timerTime / 3600000);
     let minutes = Math.floor(timerTime / 60000) % 60;
@@ -47,7 +50,8 @@ export default class Stopwatch extends Component {
     if (hours >= 1 || minutes >= 1) {
       this.props.addRecord(
         `${hours} hours and ${minutes} minutes`,
-        this.state.project
+        timerTime,
+        projectId._id
       );
     } else {
       alert('Time spent must be higher than 1 minute!');
@@ -76,14 +80,14 @@ export default class Stopwatch extends Component {
           >
             <option></option>
             {this.props.projects.map(p => (
-              <option key={p.name}>{p.name}</option>
+              <option key={p._id}>{p.name}</option>
             ))}
           </select>
           <div className="input-group-append">
             <button
               className="btn btn-outline-secondary"
               type="button"
-              onClick={this.props.addProject}
+              onClick={this.props.toggleModal}
             >
               Add
             </button>
