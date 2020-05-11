@@ -24,9 +24,12 @@ export default class HomePage extends Component {
   refreshHistory() {
     try {
       axios
-        .get(`${process.env.REACT_APP_API_PATH}/api/v1/timelogs/?sort=-date`, {
-          withCredentials: true
-        })
+        .get(
+          `${process.env.REACT_APP_API_PATH}/api/v1/timelogs/${this.props.userId}?sort=-date`,
+          {
+            withCredentials: true
+          }
+        )
         .then(res => {
           this.setState({
             records: res.data.data.data
@@ -39,9 +42,12 @@ export default class HomePage extends Component {
   refreshProjects() {
     try {
       axios
-        .get(`${process.env.REACT_APP_API_PATH}/api/v1/projects/`, {
-          withCredentials: true
-        })
+        .get(
+          `${process.env.REACT_APP_API_PATH}/api/v1/projects/${this.props.userId}`,
+          {
+            withCredentials: true
+          }
+        )
         .then(res => {
           this.setState({
             projects: res.data.data.data
@@ -65,7 +71,8 @@ export default class HomePage extends Component {
       timeOfDay: newTime,
       timeSpentString: timeSpentString,
       timeSpentInt: timeSpentInt,
-      project: projectId
+      project: projectId,
+      user: this.props.userId
     };
     try {
       axios

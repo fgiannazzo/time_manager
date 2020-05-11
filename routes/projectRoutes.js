@@ -10,6 +10,6 @@ router.use(authController.protect);
 router.post('/', projectController.createProject);
 router.delete('/:id', projectController.deleteProject);
 router.patch('/:id', projectController.updateProject);
-router.get('/', projectController.getProjects);
+router.get('/:userId', projectController.getProjects);
 
 module.exports = router;

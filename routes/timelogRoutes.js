@@ -10,6 +10,6 @@ router.use(authController.protect);
 router.post('/', timelogController.createTimelog);
 router.delete('/:id', timelogController.deleteTimelog);
 router.patch('/:id', timelogController.updateTimelog);
-router.get('/', timelogController.getTimelogs);
+router.get('/:userId', timelogController.getTimelogs);
 
 module.exports = router;

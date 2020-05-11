@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import HomePage from './pages/HomePage';
 import PrivateRoute from './PrivateRoute';
+import Signup from './pages/Signup';
 
 export default class App extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export default class App extends Component {
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.signup = this.signup.bind(this);
   }
   login(email, password) {
     try {
@@ -42,7 +44,28 @@ export default class App extends Component {
       console.log(err);
     }
   }
-
+  signup(name, email, password, confirmPassword) {
+    try {
+      const newUser = {
+        name: name,
+        email: email,
+        password: password,
+        passwordConfirm: confirmPassword
+      };
+      axios
+        .post(`${process.env.REACT_APP_API_PATH}/api/v1/users/signup`, newUser)
+        .then(res => {
+          if (res.status === 201) {
+            this.setState({
+              loggedIn: true,
+              id: res.data.data.user.id
+            });
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
   logout() {
     try {
       axios
@@ -74,6 +97,17 @@ export default class App extends Component {
                 <Login
                   {...routeProps}
                   login={this.login}
+                  loggedIn={this.state.loggedIn}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/signup"
+              render={routeProps => (
+                <Signup
+                  {...routeProps}
+                  signup={this.signup}
                   loggedIn={this.state.loggedIn}
                 />
               )}

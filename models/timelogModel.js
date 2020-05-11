@@ -21,6 +21,11 @@ const timelogSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'Project',
     required: [true, 'Timelog must be associated to a Project!']
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: [true, 'Timelog must be associated to a User!']
   }
 });
 
