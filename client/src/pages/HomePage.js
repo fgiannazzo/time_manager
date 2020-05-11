@@ -18,6 +18,8 @@ export default class HomePage extends Component {
     this.refreshHistory = this.refreshHistory.bind(this);
     this.refreshProjects = this.refreshProjects.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.delRecord = this.delRecord.bind(this);
+    this.editRecord = this.editRecord.bind(this);
   }
   refreshHistory() {
     try {
@@ -56,9 +58,10 @@ export default class HomePage extends Component {
   addRecord(timeSpentString, timeSpentInt, projectId) {
     const now = new Date();
     const newDate = now.toDateString();
-    const newTime = now.toLocaleTimeString();
+    const options = { hour: 'numeric', minute: 'numeric' };
+    const newTime = now.toLocaleTimeString(undefined, options);
     let newRecord = {
-      dateString: newDate,
+      dateString: newDate.slice(3, newDate.length),
       timeOfDay: newTime,
       timeSpentString: timeSpentString,
       timeSpentInt: timeSpentInt,
@@ -112,6 +115,28 @@ export default class HomePage extends Component {
       console.log(err);
     }
   }
+  delRecord(id) {
+    console.log('record', id);
+    try {
+      axios
+        .delete(`${process.env.REACT_APP_API_PATH}/api/v1/timelogs/${id}`, {
+          withCredentials: true
+        })
+        .then(res => {
+          if (res.status === 204) {
+            this.refreshProjects();
+          } else {
+            alert('Error deleting project!');
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  editRecord(id) {
+    console.log('edit', id);
+  }
+
   render() {
     return (
       <div className="HomePage ">
@@ -128,7 +153,11 @@ export default class HomePage extends Component {
             size="col-md-12 col-lg-8 ml-mt-auto mt-lg-0"
             title="History"
           >
-            <History records={this.state.records} />
+            <History
+              records={this.state.records}
+              delRecord={this.delRecord}
+              editRecord={this.editRecord}
+            />
           </HomePageCard>
         </div>
         <ProjectModal

@@ -14,6 +14,7 @@ export default class History extends Component {
               <th scope="col">Time of Day</th>
               <th scope="col">Time Spent</th>
               <th scope="col">Project</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -23,7 +24,10 @@ export default class History extends Component {
                 time={i.timeOfDay}
                 timeSpent={i.timeSpentString}
                 project={i.project.name}
+                id={i._id}
                 key={i._id}
+                delRecord={this.props.delRecord}
+                editRecord={this.props.editRecord}
               />
             ))}
           </tbody>

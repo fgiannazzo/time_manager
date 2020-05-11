@@ -43,13 +43,13 @@ export default class Stopwatch extends Component {
       ({ name }) => name === this.state.project
     );
     const { timerTime } = this.state;
-    let hours = Math.floor(timerTime / 3600000);
-    let minutes = Math.floor(timerTime / 60000) % 60;
+    let hours = ('0' + Math.floor(timerTime / 3600000)).slice(-2);
+    let minutes = ('0' + (Math.floor(timerTime / 60000) % 60)).slice(-2);
     let seconds = Math.floor(timerTime / 1000) % 60;
     seconds > 30 && minutes++;
     if (hours >= 1 || minutes >= 1) {
       this.props.addRecord(
-        `${hours} hours and ${minutes} minutes`,
+        `${hours}:${('000' + minutes).slice(-2)}`,
         timerTime,
         projectId._id
       );

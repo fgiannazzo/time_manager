@@ -2,3 +2,12 @@
   display: flex;
   padding: 0.8rem;
 }
+
+.HistoryItem-icon {
+  margin-bottom: 10px;
+  width: 18px;
+}
+
+.HistoryItem-controls {
+  height: 30px;
+}
