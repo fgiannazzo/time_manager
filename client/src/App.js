@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import HomePage from './pages/HomePage';
 import PrivateRoute from './PrivateRoute';
 import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
 
 export default class App extends Component {
   constructor(props) {
@@ -112,6 +113,9 @@ export default class App extends Component {
                 />
               )}
             />
+            <PrivateRoute path="/dashboard" loggedIn={this.state.loggedIn}>
+              <Dashboard userId={this.state.id} />
+            </PrivateRoute>
             <PrivateRoute path="/" loggedIn={this.state.loggedIn}>
               <HomePage userId={this.state.id} />
             </PrivateRoute>
